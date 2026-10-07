@@ -1,0 +1,67 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: event-backend
+
+    env_file:
+      - ./backend/.env
+
+    ports:
+      - "5000:5000"
+
+    networks:
+      - app-network
+
+    cpus: "0.50"
+    mem_limit: 512M
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+    restart: unless-stopped
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: event-frontend
+
+    ports:
+      - "8080:80"
+
+    networks:
+      - app-network
+
+    cpus: "0.50"
+    mem_limit: 512M
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
+
+
+networks:
+  app-network:
+    driver: bridge
