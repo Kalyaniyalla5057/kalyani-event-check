@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import Login from "./pages/Lo
+import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 import PrivateRoute from "./components/PrivateRoute";
