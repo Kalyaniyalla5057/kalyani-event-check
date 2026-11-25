@@ -68,7 +68,7 @@ const NotificationDropdown = ({ viewAllPath }) => {
     const userId = user?.id || user?._id || user?.userId;
     if (!userId) return;
 
-    const socket = io(API_BASE, { withCredentials: true, transports: ['websocket', 'polling'] });
+    const socket = io(window.location.origin, { withCredentials: true, transports: ['websocket', 'polling'] });
     socket.emit('joinUserRoom', userId);
     socket.on('newNotification', () => {
       // If dropdown is open, refresh the list immediately

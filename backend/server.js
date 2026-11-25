@@ -16,7 +16,8 @@ const io = new Server(server, {
       if (!origin) return callback(null, true);
       const isLocal = origin.includes('localhost') || origin.includes('127.0.0.1');
       const isPrivate = /^https?:\/\/(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(origin);
-      callback(null, isLocal || isPrivate);
+      const isConfiguredFrontend = process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL;
+      callback(null, isLocal || isPrivate || isConfiguredFrontend);
     },
     methods: ['GET', 'POST'],
     credentials: true
